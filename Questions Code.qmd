@@ -1,0 +1,254 @@
+---
+title: "Questions Code"
+format: html
+editor: visual
+---
+
+```{r}
+
+library(tidyverse)
+
+```
+
+
+## Q1
+
+```{r}
+
+glimpse(tree_dat)
+
+```
+
+## Q2
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  filter(standID == 1) |>
+  glimpse()
+
+```
+
+## Q3
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  filter(species == "ABBA" | species == "PIST") |>
+  glimpse()
+
+```
+
+## Q4
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  filter(age > 200 & year == 2007) |>
+  glimpse()
+
+```
+
+## Q5
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  slice_max(age) |>
+  glimpse()
+
+```
+
+## Q6
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  filter(year == 2001) |>
+  slice_max(age, n=5) |>
+  glimpse()
+
+```
+
+## Q7
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  slice_sample(prop = 0.3) |>
+  filter(year == 2002) |>
+  glimpse()
+
+```
+
+## Q8
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  filter(year == 2007 & standID == 5) |>
+  arrange(-rad_ib_mm) |>
+  slice_head(n = 3) |>
+  glimpse()
+
+```
+
+## Q9
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  select(treeID, standID, year, rad_ib_mm) |>
+  filter(standID == 3 & year == 2007) |>
+  slice_min(order_by = rad_ib_mm, n = 3) |>
+  glimpse()
+
+```
+
+## Q10
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  select(treeID, standID, year, rad_ib_mm) |>
+  select(-standID) |>
+  glimpse()
+
+```
+
+## Q11
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  select(contains("ID")) |>
+  glimpse()
+
+```
+
+## Q12
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  select(contains("stand") | contains("ID")) |>
+  glimpse()
+
+```
+
+## Q13
+
+```{r}
+
+tree_dat <- tree_dat |>
+  rename(rad_ib_mm = rad_ib) |>
+  rename(inc_mm = inc) |>
+  glimpse()
+
+```
+
+## Q14
+
+```{r}
+## Part One
+tree_dat <- tree_dat |>
+  mutate(rad_ib_cm = rad_ib_mm/10) |>
+  mutate(basel_area_m2 = 0.00007854*rad_ib_cm^2) |>
+  glimpse()
+
+## Part Two
+filtered_tree_dat <- tree_dat |>
+  filter(year == 2007 & species == "POTR")  
+
+mean_basel_area <- mean(filtered_tree_dat$basel_area_m2, na.rm = TRUE)
+
+print(mean_basel_area)
+
+```
+
+## Q15
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  mutate(established = if_else(age > 5, TRUE, FALSE, missing = NULL)) |>
+  count(established)
+
+```
+
+## Q16
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  mutate(classification = case_when(
+    rad_ib_cm < 2.5 ~ "seedling",
+    rad_ib_cm >= 2.5 & rad_ib_cm < 10 ~ "sapling",
+    rad_ib_cm >= 10 & rad_ib_cm < 30 ~ "pole",
+    rad_ib_cm >= 30 ~ "sawlog",
+    TRUE ~ NA_character_
+  )) |>
+  filter(year == 2007) |>
+  count(classification) |>
+  glimpse()
+
+```
+
+## Q17
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  filter(year == 2007) |>
+  summarize(
+    mean_rad = mean(rad_ib_cm, na.rm = TRUE),
+    sd_rad = sd(rad_ib_cm, na.rm = TRUE)) |>
+  glimpse()
+
+```
+
+## Q18
+
+```{r}
+
+trees_by_species <- tree_dat |>
+  filter(year == 2003) |>
+  group_by(species) |>
+  summarize(
+    mean_tree_age = mean(age, na.rm = TRUE)) |>
+  slice_max(mean_tree_age, n = 3) |>
+  glimpse()
+
+```
+
+## Q19
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  group_by(stand) |>
+  summarize(
+    num_unique_years = n_distinct(year),
+    first_year = min(year),
+    last_year = max(year)
+  ) |>
+  arrange(-num_unique_years) |>
+  glimpse()
+
+```
+
+## Q20
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  mutate(growth = rad_ib_cm - lag(rad_ib_cm)) |>
+  mutate(total_years = n()) |>
+  filter(total_years > 10) |>
+  filter(!is.na(growth)) |>
+  group_by(species) |>
+  summarise(mean_growth = mean(growth)) |>
+  arrange(mean_growth) |>
+  glimpse()
+
+```
