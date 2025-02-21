@@ -13,55 +13,53 @@ format: html
 >
 > **Question 2:** How many records have been made in standID 1?
 >
-> -   979
+> -   There are 979 records of trees made with the standID "1".
 >
 > **Question 3:** How many records of the Abies balsamea and Pinus strobus species have been made?
 >
-> -   13033 Abies balsamea
->
-> -   4188 Pinus strobus
+> -   There are 13,033 Abies balsamea ("ABBA") records, 4,188 Pinus strobus ("PIST") records, and a total of 17,221 records.
 >
 > **Question 4:** How many trees are older then 200 years old in the last year of the dataset?
 >
-> -   7
+> -   There are 7 trees that are over the age of 200 in the year 2007. Two of them are from the "PIRE" species, and five of them are from "FRNI."
 
 ### 2. Slicing Rows
 
 > **Question 5: What is the oldest tree in the dataset found using slice_max?**
 >
-> -   269
+> -   The oldest tree is the "PIRE" treeID 24, which was 269 years old in 2007.
 
 > **Question 6: Find the oldest 5 trees recorded in 2001. Use the help docs to understand optional parameters**
 >
-> -   263, 259, 212, 206, 206
+> -   The oldest trees recorded were 263, 259, 212, 206, 206. Two of which were from "PIRE" and three of them from "FRNI."
 
 > **Question 7: Using slice_sample, how many trees are in a 30% sample of those recorded in 2002?**
 >
-> -   727
+> -   In a 30% sample size (39,415 records), 727 of those records were in 2002.
 
 ### 3. Arranging Rows
 
 > **Question 8: Filter all trees in stand 5 in 2007. Sort this subset by *descending* radius at breast height (rad_ib) and use slice_head() to get the top three trees. Report the tree IDs**
 >
-> -   128, 157, 135
+> -   The three trees in standID 5 that had the largest radius at breast height were 128, 157, and 135.
 
 ### 4. Reducing Columns
 
 > **Question 9: Reduce your full `data.frame` to \[treeID, stand, year, and radius at breast height\]. Filter to only those in stand 3 with records from 2007, and use slice_min to pull the smallest three trees meaured that year.**
 >
-> -   50, 56, 36
+> -   The smallest trees from this selection measured in 2007 were 50, 56, and 36.
 
 > **Question 10: Use select to *remove* the stand column. Use glimspe to show the dataset.**
 >
-> -   Done
+> -   Done.
 
 > **Question 11: Look at the help document for dplyr::select and examine the “Overview of selection features”. Identify an option (there are multiple) that would help select all columns with the string “ID” in the name. Using glimpse to view the remaining dataset**
 >
-> -   Done, used "contains("ID")"
+> -   Done, used "contains("ID")."
 >
 > **Question 12: Find a selection pattern that captures all columns with either ‘ID’ or ‘stand’ in the name. Use glimpse to verify the selection.**
 >
-> -   
+> -   The columns that were selected was "treeID", "stand", and "standID."
 
 ### 5. Renaming Columns
 
@@ -75,47 +73,41 @@ format: html
 > BA(m2) = 0.00007854⋅DBH\^2\
 > Where DBH is the diameter at breast height (cm). Use mutate to compute DBH in centimeters, and BA in m2 (HINT: Make sure rad_ib is in cm prior to computing the diameter!). What is the mean BA_m2 of the the species `POTR` in 2007?**
 >
-> ```         
->  0.009241546
-> ```
+> -   The mean of the basal area of POTR in 2007 is 0.009241546 m\^2.
 
 ### 7. case_when / if_else
 
 > **Question 15: Lets say for the sake of our study, trees are not established until they are 5 years of age. Use `if_else` to add a boolean column to our dataset called `established` that is TRUE if the age is greater then 5 and FALSE if less then or equal to five. Once added, use count (see ?count) to determine how many records are from estabilshed trees?**
 >
-> -   122,503 established \| 8,883 young
+> -   There are 122,503 established trees and 8,883 young trees.
 >
 > **Question 16: Use `mutate` and `case_when` to add a new column to you data.frame that classifies each tree into the proper DBH_class. Once done, limit your dataset to the year 2007 and report the number of each class with count.**
 >
-> -   473 pole, 1817 sapling, 1 sawlog
+> -   There are 473 "poles", 1817 "saplings", and 1 "sawlog."
 
 ### 8. Summarizing
 
 > **Question 17: Compute the mean DBH (in cm) and standard deviation of DBH (in cm) for all trees in 2007. Explain the values you found and their statistical meaning.**
 >
-> -   mean: 8.046755 - the sum of all the DBH divided by the number of observations to find the "average"
+> -   The mean of DBH for all trees in 2007 is 8.046755, which measures the sum of all the DBH records divided by the number of observations to find the "average" diameter at breast height.
 >
-> -   sd: 3.069321 - finds the amount of variation from the mean value
+> -   The standard deviation of DBH for all trees in 2007 is 3.069321, this finds the amount of variation from the mean value.
 
 ### 9. Grouped Data
 
 > **Question 18: Compute the *per species* mean tree age using only those ages recorded in 2003. Identify the three species with the oldest mean age.**
 >
-> -   THOC (126.63830), FRNI (83.08333), PIST (73.28571)
+> -   The tree species with the oldest mean ages are THOC (126.63830), FRNI (83.08333), and PIST (73.28571).
 
 ### 10. Counting
 
 > **Question 19: In a single summarize call, find the number of unique years with records in the data set along with the first and last year recorded?**
 >
-> -   Unique Years: 111
->
-> -   1st Year: 1897
->
-> -   Last Year: 2007
+> -   The largest amount of unique years was 111 different years. The 1st year recorded was 1897 and the latest year was 2007.
 >
 > **Question 20: Determine the stands with the largest number of unique years recorded. Report all stands with largest (or tied with the largest) temporal record.**
 >
-> -   A1, D1, D2, D3, F1
+> -   The stands with the tie for the largest amount of unique years recorded were A1, D1, D2, D3, and F1 with 111 unique years.
 
 ### Final Question
 
@@ -123,6 +115,10 @@ format: html
 >
 > **Lastly, find and include an image of the fastest growing species. Add the image to your images directory.**
 >
-> -   Fastest growing trees: PIRE (0.0221793750), PIST (0.0133043457), and POTR (0.0120377590)
+> -   The fastest growing trees species were PIRE (0.0221793750), PIST (0.0133043457), and POTR (0.0120377590).
 >
-> -   Slowest growing trees: ABBA (-0.0197856392), PIGL (-0.0107553007), ACRU (-0.0053966451)
+> -   The slowest growing trees species were ABBA (-0.0197856392), PIGL (-0.0107553007), and ACRU (-0.0053966451).
+
+------------------------------------------------------------------------
+
+![This image depicts the fastest growing tree species, the Pinus resinosa (aka the 'Red Pine') This identification photo comes from the Gymnosperm Datadase and is titled "Trees, foliage and cones." This drawing is by Matt Strieby, 2018.](images/Red%20Pine%20Photo%20-%20Gynosperm%20Database.jpg)

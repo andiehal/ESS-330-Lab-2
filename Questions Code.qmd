@@ -226,18 +226,29 @@ trees_by_species <- tree_dat |>
 ```{r}
 
 filtered_tree_dat <- tree_dat |>
-  group_by(stand) |>
   summarize(
     num_unique_years = n_distinct(year),
     first_year = min(year),
     last_year = max(year)
+  ) |>
+  glimpse()
+
+```
+## Q20
+
+```{r}
+
+filtered_tree_dat <- tree_dat |>
+  group_by(stand) |>
+  summarize(
+    num_unique_years = n_distinct(year),
   ) |>
   arrange(-num_unique_years) |>
   glimpse()
 
 ```
 
-## Q20
+## Final Question
 
 ```{r}
 
