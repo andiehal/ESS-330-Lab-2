@@ -1,7 +1,7 @@
 ---
 title: "Questions"
 format: html
-output-dir: docs
+  output-dir: docs
 ---
 
 # Exercises -

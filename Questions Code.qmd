@@ -2,6 +2,7 @@
 title: "Questions Code"
 format: html
 editor: visual
+  output-dir: docs
 ---
 
 ```{r}
